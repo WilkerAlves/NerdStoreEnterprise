@@ -1,6 +1,8 @@
-﻿using System;
+﻿using NSE.WebApp.MVC.Extensions;
 using System.Net.Http;
-using NSE.WebApp.MVC.Extensions;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace NSE.WebApp.MVC.Services
 {
@@ -22,6 +24,26 @@ namespace NSE.WebApp.MVC.Services
 
             response.EnsureSuccessStatusCode();
             return true;
+        }
+
+        protected StringContent ObterConteudo(object dado)
+        {
+            return new StringContent(
+                JsonSerializer.Serialize(dado),
+                Encoding.UTF8,
+                "application/json"
+            );
+        }
+
+        protected async Task<T> DeserializarObjetoResponse<T>(HttpResponseMessage responseMessage)
+        {
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+            };
+
+
+            return JsonSerializer.Deserialize<T>(await responseMessage.Content.ReadAsStringAsync(), options);
         }
     }
 }
