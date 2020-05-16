@@ -10,7 +10,7 @@ namespace NSE.Catalogo.API.Models
         public bool Ativo { get; set; }
         public decimal Valor { get; set; }
         public DateTime DataCadastro { get; set; }
-        public string Image { get; set; }
+        public string Imagem { get; set; }
         public int QuantidadeEstoque { get; set; }
     }
 }

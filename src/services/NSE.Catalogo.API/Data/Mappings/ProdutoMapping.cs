@@ -8,7 +8,7 @@ namespace NSE.Catalogo.API.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Produto> builder)
         {
-            builder.HasKey(p => p.Ativo);
+            builder.HasKey(p => p.Id);
 
             builder.Property(p => p.Nome)
                 .IsRequired()
@@ -18,7 +18,7 @@ namespace NSE.Catalogo.API.Data.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(500)");
 
-            builder.Property(p => p.Image)
+            builder.Property(p => p.Imagem)
                 .IsRequired()
                 .HasColumnType("varchar(250)");
 

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NSE.Catalogo.API.Data;
 
 namespace NSE.Catalogo.API.Migrations
 {
     [DbContext(typeof(CatalogoContext))]
-    partial class CatalogoContextModelSnapshot : ModelSnapshot
+    [Migration("20200516125911_alterao_imagem")]
+    partial class alterao_imagem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,10 +23,6 @@ namespace NSE.Catalogo.API.Migrations
 
             modelBuilder.Entity("NSE.Catalogo.API.Models.Produto", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
@@ -34,6 +32,9 @@ namespace NSE.Catalogo.API.Migrations
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasColumnType("varchar(500)");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Imagem")
                         .IsRequired()
@@ -49,7 +50,7 @@ namespace NSE.Catalogo.API.Migrations
                     b.Property<decimal>("Valor")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Ativo");
 
                     b.ToTable("Produtos");
                 });
