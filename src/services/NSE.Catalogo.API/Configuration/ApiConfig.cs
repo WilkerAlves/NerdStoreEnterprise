@@ -5,12 +5,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NSE.Catalogo.API.Data;
+using NSE.WebAPI.Core.Identidade;
 
 namespace NSE.Catalogo.API.Configuration
 {
     public static class ApiConfig
     {
-        public static IServiceCollection AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
+        public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<CatalogoContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
@@ -26,11 +27,9 @@ namespace NSE.Catalogo.API.Configuration
                             .AllowAnyMethod()
                             .AllowAnyHeader());
             });
-
-            return services;
         }
 
-        public static IApplicationBuilder UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
+        public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -43,12 +42,12 @@ namespace NSE.Catalogo.API.Configuration
 
             app.UseCors("Total");
 
+            app.UseAuthConfiguration();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-
-            return app;
         }
     }
 }

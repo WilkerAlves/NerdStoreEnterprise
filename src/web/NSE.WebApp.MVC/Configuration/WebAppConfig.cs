@@ -29,8 +29,8 @@ namespace NSE.WebApp.MVC.Configuration
             //    app.UseStatusCodePagesWithRedirects("/erro/{0}");
             //    app.UseHsts();
             //}
+            
             app.UseExceptionHandler("/erro/500");
-            // esse middleware pega todos os erros que foram tratados
             app.UseStatusCodePagesWithRedirects("/erro/{0}");
             app.UseHsts();
             app.UseHttpsRedirection();
@@ -47,7 +47,7 @@ namespace NSE.WebApp.MVC.Configuration
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Catalogo}/{action=Index}/{id?}");
             });
         }
     }
