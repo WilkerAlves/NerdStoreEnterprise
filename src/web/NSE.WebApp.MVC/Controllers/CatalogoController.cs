@@ -7,9 +7,9 @@ namespace NSE.WebApp.MVC.Controllers
 {
     public class CatalogoController : MainController
     {
-        private readonly ICatalogoService _catalogoService;
+        private readonly ICatalogoServiceRefit _catalogoService;
 
-        public CatalogoController(ICatalogoService catalogoService)
+        public CatalogoController(ICatalogoServiceRefit catalogoService)
         {
             _catalogoService = catalogoService;
         }
@@ -19,7 +19,7 @@ namespace NSE.WebApp.MVC.Controllers
         [Route("vitrine")]
         public async Task<IActionResult> Index()
         {
-            var produtos = await _catalogoService.OberTodos();
+            var produtos = await _catalogoService.ObterTodos();
 
             return View(produtos);
         }
@@ -28,7 +28,7 @@ namespace NSE.WebApp.MVC.Controllers
         [Route("produto-detalhe/{id}")]
         public async Task<IActionResult> ProdutoDetalhe(Guid id)
         {
-            var produto = await _catalogoService.ObertePorId(id);
+            var produto = await _catalogoService.ObterPorId(id);
 
             return View(produto);
         }
