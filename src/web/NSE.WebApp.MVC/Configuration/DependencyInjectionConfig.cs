@@ -6,7 +6,6 @@ using NSE.WebApp.MVC.Extensions;
 using NSE.WebApp.MVC.Services;
 using NSE.WebApp.MVC.Services.Handlers;
 using Polly;
-using Polly.Extensions.Http;
 
 namespace NSE.WebApp.MVC.Configuration
 {
@@ -19,23 +18,12 @@ namespace NSE.WebApp.MVC.Configuration
             // registro da abstração do http client
             services.AddHttpClient<IAutenticacaoService, AutenticacaoService>();
 
-            var retryWaitPolicy = HttpPolicyExtensions
-                .HandleTransientHttpError()
-                .WaitAndRetryAsync(new[]
-                {
-                    TimeSpan.FromSeconds(1),
-                    TimeSpan.FromSeconds(5),
-                    TimeSpan.FromSeconds(10),
-                }, (outcome, timeSpan, retryCount, context) =>
-                {
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine($"Tentando pela {retryCount} vez!");
-                    Console.ForegroundColor = ConsoleColor.White;
-                });
-
             services.AddHttpClient<ICatalogoService, CatalogoService>()
                 .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
-                .AddPolicyHandler(retryWaitPolicy);
+                .AddPolicyHandler(PolicyExtensions.EsperarTentar())
+                .AddTransientHttpErrorPolicy(
+                    p => 
+                        p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
                 //.AddTransientHttpErrorPolicy(
                 //    p => p.WaitAndRetryAsync(3, _ => TimeSpan.FromMilliseconds(600)));
 
