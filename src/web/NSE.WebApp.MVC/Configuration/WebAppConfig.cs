@@ -50,7 +50,6 @@ namespace NSE.WebApp.MVC.Configuration
                 SupportedUICultures = supportedCultures
             });
 
-
             //registro do middleware customizado
             app.UseMiddleware<ExceptionMiddleware>();
 
