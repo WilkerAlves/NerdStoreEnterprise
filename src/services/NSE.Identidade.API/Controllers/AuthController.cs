@@ -29,11 +29,10 @@ namespace NSE.Identidade.API.Controllers
 
         public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
-                              IOptions<AppSettings> appSettings, IBus bus)
+                              IOptions<AppSettings> appSettings)
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            _bus = bus;
             _appSettings = appSettings.Value;
         }
 
@@ -69,6 +68,7 @@ namespace NSE.Identidade.API.Controllers
         private async Task<ResponseMessage> RegistrarCliente(UsuarioRegistro usuarioRegistro)
         {
             var usuario = await _userManager.FindByEmailAsync(usuarioRegistro.Email);
+
             var usuarioRegistrado = new UserRegistredIntegrationEvent(
                 Guid.Parse(usuario.Id),
                 usuarioRegistro.Nome,
@@ -76,7 +76,8 @@ namespace NSE.Identidade.API.Controllers
                 usuarioRegistro.Cpf
             );
 
-            _bus = RabbitHutch.CreateBus("host=localhost:15672");
+            _bus = RabbitHutch.CreateBus("host=localhost:5672");
+
             var sucesso = await _bus.RequestAsync<UserRegistredIntegrationEvent, ResponseMessage>(usuarioRegistrado);
 
             return sucesso;
