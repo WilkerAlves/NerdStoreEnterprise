@@ -18,9 +18,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSE.Core", "src\building blocks\NSE.Core\NSE.Core.csproj", "{B8BFCC9D-B160-4D8B-B9DF-B05A14A71C4B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Carrinho", "Carrinho", "{C38ED051-B366-4242-909E-C6503A644E41}"
-	ProjectSection(SolutionItems) = preProject
-		src\building blocks\NSE.WebAPI.Core\Identidade\CustomAuthorize.cs = src\building blocks\NSE.WebAPI.Core\Identidade\CustomAuthorize.cs
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSE.Carrinho.API", "src\services\NSE.Carrinho.API\NSE.Carrinho.API.csproj", "{A54529E1-9143-45B3-BF7A-92F47B0D7846}"
 EndProject
@@ -52,7 +49,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSE.WebApp.MVC", "src\web\N
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MessageBus", "MessageBus", "{4DC2F9DB-9F4E-4805-9DD4-34FDE295E506}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSE.MessageBus", "src\building blocks\NSE.MessageBus\NSE.MessageBus.csproj", "{79CDBAFC-7724-4847-A890-AFEEB40AFB04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSE.MessageBus", "src\building blocks\NSE.MessageBus\NSE.MessageBus.csproj", "{79CDBAFC-7724-4847-A890-AFEEB40AFB04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
